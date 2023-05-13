@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@keyframes changebg {
+    0% {
+        background-color: #3d5dd1;
+        box-shadow: none;
+      }
+      25% {
+        background-color: #4e54cb;
+        box-shadow: none;
+      }
+      50% {
+        background-color: #04126998;
+        box-shadow: none;
+      }
+      75% {
+        background-color: #3565cc;
+        box-shadow: none;
+      }
+      100% {
+        background-color: #0f4b54;
+        box-shadow: none;
+      }
+}
+
+.animate-changebg {
+    animation: changebg 20s infinite alternate linear;
+}
