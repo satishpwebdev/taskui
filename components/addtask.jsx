@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { liveURL } from "@/constants/url";
-const Addtask = () => {
+const Addtask = ({added}) => {
    const [title, setTitle] = useState("");
    const [desc, setDesc] = useState("");
    const [date, setDate] = useState("");
-   const [isAdded, setAdded] = useState("")
 
    const addTask = (e) => {
       e.preventDefault();
@@ -23,16 +22,21 @@ const Addtask = () => {
          .then((res) => {
             console.log(res.data);
             if(res.status ==200){
-               setAdded(data)
+               added(data)
+               resetInputs()
             }
          })
          .catch((error) => {
             console.log(error);
          });
-         setTitle("");
-         setDesc("");
-         setDate("");
+   
    };
+
+   const resetInputs = () => {
+      setTitle("");
+      setDesc("");
+      setDate("");
+    };
 
 
 
@@ -43,12 +47,14 @@ const Addtask = () => {
                <input
                   className="h-10 w-full md:w-40 p-2 mb-2 md:mr-2 rounded-md border border-gray-300 focus:outline-none focus:border-blue-500"
                   type="text"
+                  value={title}
                   placeholder="Title"
                   onChange={(e) => setTitle(e.target.value)}
                />
                <input
                   className="h-10 w-full md:w-64 p-2 mb-2 md:mr-2 rounded-md border border-gray-300 focus:outline-none focus:border-blue-500"
                   type="text"
+                  value={desc}
                   placeholder="Description"
                   onChange={(e) => setDesc(e.target.value)}
                />
@@ -56,6 +62,7 @@ const Addtask = () => {
                   <input
                      className="h-10 w-full md:w-40 p-2 mb-2 md:mr-2 rounded-md border border-gray-300 focus:outline-none focus:border-blue-500"
                      type="date"
+                     value={date}
                      placeholder="Date"
                      onChange={(e) => setDate(e.target.value)}
                   />
