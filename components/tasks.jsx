@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios, { all } from "axios";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { FiEdit2 } from "react-icons/fi";
+import { liveURL } from "@/constants/url";
 
 const TaskList = () => {
    const [alltasks, setAllTask] = useState(null);
@@ -18,7 +19,7 @@ const TaskList = () => {
 
    const getAllTask = async () => {
       try {
-         const res = await axios.get("http://localhost:8000/tasks");
+         const res = await axios.get(`${liveURL}/tasks`);
          const respo = await res.data;
          setAllTask(respo);
       } catch (error) {
