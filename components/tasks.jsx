@@ -29,7 +29,7 @@ const TaskList = () => {
 
    const deleteTask = async (id) => {
       try {
-         const res = await axios.delete(`http://localhost:8000/taskdel/${id}`);
+         const res = await axios.delete(`${liveURL}/taskdel/${id}`);
          const resp = await res.data
          if(resp){
             setStatus(res.data)
