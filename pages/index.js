@@ -7,7 +7,7 @@ export default function Home() {
    return (
       <>
          {/* <section className="flex justify-center h-screen  bg-[#7289DA]"> */}
-         <section className="flex justify-center h-screen  animate-changebg">
+         <section className="flex justify-center lg:h-screen  animate-changebg">
             <div className="mt-10">
                {/* <Addtask></Addtask> */}
                <TaskList></TaskList>
