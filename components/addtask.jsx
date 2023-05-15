@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { liveURL } from "@/constants/url";
-const Addtask = ({added}) => {
+import * as addTaskAction from "../redux/action/tasks";
+import { useSelector, useDispatch } from "react-redux";
+const Addtask = ({ added }) => {
    const [title, setTitle] = useState("");
    const [desc, setDesc] = useState("");
    const [date, setDate] = useState("");
+   const dispatch = useDispatch();
 
    const addTask = (e) => {
       e.preventDefault();
@@ -15,30 +18,27 @@ const Addtask = ({added}) => {
       const data = {
          taskName: title,
          desc,
-         remindAt:date
-      }
-      axios
-         .post(`${liveURL}/tasks`, data)
+         remindAt: date,
+      };
+
+      dispatch(addTaskAction.addTask(data))
          .then((res) => {
-            console.log(res.data);
-            if(res.status ==200){
-               added(data)
-               resetInputs()
+            if (res.status == 200) {
+               added(data);
+               resetInputs();
             }
          })
-         .catch((error) => {
-            console.log(error);
+         .catch((err) => {
+            console.log(err);
          });
-   
+      resetInputs();
    };
 
    const resetInputs = () => {
       setTitle("");
       setDesc("");
       setDate("");
-    };
-
-
+   };
 
    return (
       <>

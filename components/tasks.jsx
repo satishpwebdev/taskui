@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
-import axios, { all } from "axios";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { FiEdit2 } from "react-icons/fi";
-import { liveURL } from "@/constants/url";
 import Addtask from "./addtask";
+import * as taskAction from "../redux/action/tasks";
+import * as deleteAction from "../redux/action/tasks";
+import { useSelector, useDispatch } from "react-redux";
 
 const TaskList = () => {
-   const [alltasks, setAllTask] = useState(null);
+   const dispatch = useDispatch();
    const [isStatus, setStatus] = useState("");
    const [isAdded, setAdded] = useState("");
+   const tasklist = useSelector((state) => state.tasks.taskList);
 
    const generateRandomColor = () => {
       const letters = "0123456789ABCDEF";
@@ -19,43 +20,33 @@ const TaskList = () => {
       return color;
    };
 
-   const getAllTask = async () => {
-      try {
-         const res = await axios.get(`${liveURL}/tasks`);
-         const respo = await res.data;
-         setAllTask(respo);
-      } catch (error) {
-         console.log(error);
-      }
+   const handleAdd = (data) => {
+      setAdded(data);
    };
 
    const deleteTask = async (id) => {
-      try {
-         const res = await axios.delete(`${liveURL}/taskdel/${id}`);
-         const resp = await res.data;
-         if (resp) {
-            setStatus(res.data);
-         }
-      } catch (error) {
-         console.log(error);
-      }
+      dispatch(deleteAction.deleteTask(id))
+         .then((res) => {
+            if (res) {
+               setStatus(res.data);
+            }
+         })
+         .catch((err) => {
+            console.log(err);
+         });
    };
 
    useEffect(() => {
-      getAllTask();
-   }, [isStatus,isAdded]);
-
-   const handleAdd =(data)=>{
-      setAdded(data)
-   }
+      dispatch(taskAction.getAllTasks());
+   }, [isStatus, isAdded]);
 
    return (
       <>
          <Addtask added={handleAdd}></Addtask>
          <section className="flex justify-center mt-5 mb-5">
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-               {alltasks?.length &&
-                  alltasks?.map((item) => (
+               {tasklist?.length &&
+                  tasklist?.map((item) => (
                      <div key={item?._id} className=" p-6 rounded-lg shadow-lg" style={{ backgroundColor: generateRandomColor() }}>
                         <div className="flex justify-between">
                            <h3 className="text-lg text-white font-semibold mb-4">{item?.taskName}</h3>
