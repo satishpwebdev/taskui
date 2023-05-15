@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { liveURL } from "@/constants/url";
+import React, { useState } from "react";
 import * as addTaskAction from "../redux/action/tasks";
 import { useSelector, useDispatch } from "react-redux";
-const Addtask = ({ added }) => {
+
+const Addtask = ({onAddTask, isLoading}) => {
    const [title, setTitle] = useState("");
    const [desc, setDesc] = useState("");
    const [date, setDate] = useState("");
@@ -11,7 +10,6 @@ const Addtask = ({ added }) => {
 
    const addTask = (e) => {
       e.preventDefault();
-      console.log(title, desc, date);
       if (!title.length || !desc.length || !date.length) {
          return;
       }
@@ -20,17 +18,7 @@ const Addtask = ({ added }) => {
          desc,
          remindAt: date,
       };
-
-      dispatch(addTaskAction.addTask(data))
-         .then((res) => {
-            if (res.status == 200) {
-               added(data);
-               resetInputs();
-            }
-         })
-         .catch((err) => {
-            console.log(err);
-         });
+      onAddTask(data);
       resetInputs();
    };
 
@@ -71,12 +59,14 @@ const Addtask = ({ added }) => {
                   onClick={addTask}
                   type="sumbit"
                   className="h-10 w-full md:w-40 py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-300"
+                  disabled={isLoading}
                >
-                  Add Task
+                  {"Add Task"}
                </button>
             </form>
          </section>
       </>
    );
 };
+
 export default Addtask;
