@@ -6,6 +6,7 @@ const Addtask = ({onAddTask, isLoading}) => {
    const [title, setTitle] = useState("");
    const [desc, setDesc] = useState("");
    const [date, setDate] = useState("");
+   const[isShow, setShow] = useState(false)
    const dispatch = useDispatch();
 
    const addTask = (e) => {
@@ -19,6 +20,7 @@ const Addtask = ({onAddTask, isLoading}) => {
          remindAt: date,
       };
       onAddTask(data);
+      setShow(false)
       resetInputs();
    };
 
@@ -28,25 +30,30 @@ const Addtask = ({onAddTask, isLoading}) => {
       setDate("");
    };
 
+   const showAdd =(e)=>{
+      e.preventDefault()
+      setShow(true)
+   }
+
    return (
       <>
-         <section className="flex items-center justify-center pt-5">
+         <section className="flex items-center justify-center pt- pb-4">
             <form className="flex flex-col md:flex-row">
-               <input
+               {isShow ? (<input
                   className="h-10 w-full md:w-40 p-2 mb-2 md:mr-2 rounded-md border border-gray-300 focus:outline-none focus:border-blue-500"
                   type="text"
                   value={title}
                   placeholder="Title"
                   onChange={(e) => setTitle(e.target.value)}
-               />
-               <input
+               />):null}
+              {isShow ?( <input
                   className="h-10 w-full md:w-64 p-2 mb-2 md:mr-2 rounded-md border border-gray-300 focus:outline-none focus:border-blue-500"
                   type="text"
                   value={desc}
                   placeholder="Description"
                   onChange={(e) => setDesc(e.target.value)}
-               />
-               <div className="flex flex-col md:flex-row">
+               />):null}
+               {isShow ? (<div className="flex flex-col md:flex-row">
                   <input
                      className="h-10 w-full md:w-40 p-2 mb-2 md:mr-2 rounded-md border border-gray-300 focus:outline-none focus:border-blue-500"
                      type="date"
@@ -54,14 +61,14 @@ const Addtask = ({onAddTask, isLoading}) => {
                      placeholder="Date"
                      onChange={(e) => setDate(e.target.value)}
                   />
-               </div>
+               </div>):null}
                <button
-                  onClick={addTask}
+                  onClick={isShow ? addTask :showAdd}
                   type="sumbit"
                   className="h-10 w-full md:w-40 py-2 px-4 bg-yellow-500 text-white font-semibold rounded-md hover:bg-yellow-600 transition duration-300"
                   disabled={isLoading}
                >
-                  {"Add Task"}
+                  {isShow ? "Submit" :"Add Task"}
                </button>
             </form>
          </section>
