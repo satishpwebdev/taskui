@@ -30,7 +30,7 @@ const Addtask = ({onAddTask, isLoading}) => {
 
    return (
       <>
-         <section className="flex items-center justify-center">
+         <section className="flex items-center justify-center pt-5">
             <form className="flex flex-col md:flex-row">
                <input
                   className="h-10 w-full md:w-40 p-2 mb-2 md:mr-2 rounded-md border border-gray-300 focus:outline-none focus:border-blue-500"
