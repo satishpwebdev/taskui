@@ -68,42 +68,50 @@ const TaskList = () => {
 
    return (
       <>
-         <Addtask onAddTask={handleAddTask} isLoading={isLoading}></Addtask>
-         <section className="flex justify-center mt-5 mb-5">
-            {isLoading ? (
-               // <div className="loader">Loading...</div>
-               <div className="">
-                  <Oval
-                     height={30}
-                     width={30}
-                     color="#fff"
-                     wrapperStyle={{}}
-                     wrapperClass=""
-                     visible={true}
-                     ariaLabel="oval-loading"
-                     secondaryColor="pink"
-                     strokeWidth={2}
-                     strokeWidthSecondary={2}
-                  />
-               </div>
-            ) : (
-               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-                  {tasklist?.length > 0 ? (
-                     tasklist.map((item) => (
-                        <div key={item?._id} className="p-6 rounded-lg shadow-lg" style={{ backgroundColor: generateRandomColor() }}>
-                           <div className="flex justify-between">
-                              <h3 className="text-lg text-white font-semibold mb-4">{item?.taskName}</h3>
-                              <RiDeleteBin6Line onClick={() => deleteTask(item?._id)} className="hover:cursor-pointer text-white"></RiDeleteBin6Line>
+         <section className="bg-cover bg-center bg-no-repeat bg-discord min-h-screen min-w-screen ">
+            <Addtask onAddTask={handleAddTask} isLoading={isLoading}></Addtask>
+            <section className="flex justify-center mt-5 pb-5">
+               {isLoading ? (
+                  // <div className="loader">Loading...</div>
+                  <div className="">
+                     <Oval
+                        height={30}
+                        width={30}
+                        color="#fff"
+                        wrapperStyle={{}}
+                        wrapperClass=""
+                        visible={true}
+                        ariaLabel="oval-loading"
+                        secondaryColor="pink"
+                        strokeWidth={2}
+                        strokeWidthSecondary={2}
+                     />
+                  </div>
+               ) : (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 lg:mx-2">
+                     {tasklist?.length > 0 ? (
+                        tasklist.map((item) => (
+                           <div key={item?._id} className="p-6  rounded-lg shadow-lg" style={{ backgroundColor: generateRandomColor() }}>
+                              <div className="flex justify-between ">
+                                 <h3 className="text-[1rem] text-white font-semibold mb-4">
+                                    {item?.taskName && item.taskName.length > 24 ? `${item.taskName.substring(0, 24)} ...` : item?.taskName}
+                                 </h3>
+                                 <RiDeleteBin6Line
+                                    size={17}
+                                    onClick={() => deleteTask(item?._id)}
+                                    className="hover:cursor-pointer text-white "
+                                 ></RiDeleteBin6Line>
+                              </div>
+                              <p className="text-white mb-2 text-[">Details: {item?.desc && item.desc.length > 24 ? `${item.desc.substring(0, 24)}...` : item?.desc}</p>
+                              <p className="text-white">Remind at: {item?.remindAt}</p>
                            </div>
-                           <p className="text-white mb-2">Description: {item?.desc}</p>
-                           <p className="text-white">Remind at: {item?.remindAt}</p>
-                        </div>
-                     ))
-                  ) : (
-                     <p>No tasks available.</p>
-                  )}
-               </div>
-            )}
+                        ))
+                     ) : (
+                        <p>No tasks available.</p>
+                     )}
+                  </div>
+               )}
+            </section>
          </section>
       </>
    );
