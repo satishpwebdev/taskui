@@ -2,6 +2,7 @@
 .next/
 out/
 
+
 # Compiled output
 dist/
 build/
