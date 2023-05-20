@@ -58,7 +58,7 @@ const Addtask = ({onAddTask, isLoading}) => {
                <button
                   onClick={addTask}
                   type="sumbit"
-                  className="h-10 w-full md:w-40 py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-300"
+                  className="h-10 w-full md:w-40 py-2 px-4 bg-yellow-500 text-white font-semibold rounded-md hover:bg-yellow-600 transition duration-300"
                   disabled={isLoading}
                >
                   {"Add Task"}

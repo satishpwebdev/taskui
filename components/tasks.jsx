@@ -91,7 +91,7 @@ const TaskList = () => {
                   <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 lg:mx-2">
                      {tasklist?.length > 0 ? (
                         tasklist.map((item) => (
-                           <div key={item?._id} className="p-6  rounded-lg shadow-lg" style={{ backgroundColor: generateRandomColor() }}>
+                           <div key={item?._id} className="p-[1rem]  rounded-lg shadow-lg" style={{ backgroundColor: generateRandomColor() }}>
                               <div className="flex justify-between ">
                                  <h3 className="text-[1rem] text-white font-semibold mb-4">
                                     {item?.taskName && item.taskName.length > 24 ? `${item.taskName.substring(0, 24)} ...` : item?.taskName}
@@ -99,7 +99,7 @@ const TaskList = () => {
                                  <RiDeleteBin6Line
                                     size={17}
                                     onClick={() => deleteTask(item?._id)}
-                                    className="hover:cursor-pointer text-white "
+                                    className="hover:cursor-pointer text-white ml-2 "
                                  ></RiDeleteBin6Line>
                               </div>
                               <p className="text-white mb-2 text-[">Details: {item?.desc && item.desc.length > 24 ? `${item.desc.substring(0, 24)}...` : item?.desc}</p>
